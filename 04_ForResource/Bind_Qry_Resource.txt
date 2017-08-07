@@ -56,7 +56,7 @@ Base_Bind_ReqQryTrade
 RF_Bind_ReqQryTrade
     [Arguments]    ${InvestorID}    ${SecurityID}    ${ExchangeID}    ${MarketID}    ${ShareholderID}    ${TradeID}
     ...    ${TradeTimeStart}    ${TradeTimeEnd}    ${BusinessUnitID}    ${ApiID}=${ApiID}
-    ${ret}    RF_Bind_template_req    ReqQryTrade    CTORATstpQryTradeField    ${ApiID}    ${1}    ${EMPTY}
+    ${ret}    RF_Bind_template_req    ReqQryTrade    CTORATstpQryTradeField    ${ApiID}    ${1}    ${DepartmentID}
     ...    ${LogInAccount}    ${LogInAccountType}    InvestorID=${InvestorID}
     [Return]    ${ret}
 
@@ -70,7 +70,7 @@ RF_Bind_ReqQryIPOInfo
     [Arguments]    ${ExchangeID}    ${SecurityID}    ${ApiID}=${ApiID}
     #call api    CreateApiSession    ${ApiID}    ${UserID}    0
     #call api    SubscribePrivateTopic    ${ApiID}    ${2}    ${UserID}    0
-    ${ret}    RF_Bind_template_req    ReqQryIPOInfo    CTORATstpQryIPOInfoField    ${ApiID}    ${1}    ${EMPTY}
+    ${ret}    RF_Bind_template_req    ReqQryIPOInfo    CTORATstpQryIPOInfoField    ${ApiID}    ${1}    ${DepartmentID}
     ...    ${UserID}    0
     [Return]    ${ret}
 
@@ -81,7 +81,7 @@ Base_Bind_ReqQryETFFile
 
 RF_Bind_ReqQryEtfFile
     [Arguments]    ${ExchangeID}    ${ETFSecurityID}    ${ETFCreRedSecurityID}    ${ApiID}=${ApiID}
-    ${ret}    RF_Bind_template_req    ReqQryETFFile    CTORATstpQryETFFileField    ${ApiID}    ${1}    ${EMPTY}
+    ${ret}    RF_Bind_template_req    ReqQryETFFile    CTORATstpQryETFFileField    ${ApiID}    ${1}    ${DepartmentID}
     ...    ${LogInAccount}    ${LogInAccountType}    ExchangeID=${ExchangeID}    ETFSecurityID=${ETFSecurityID}
     [Return]    ${ret}
 
@@ -147,7 +147,7 @@ Base_Bind_ReqQryTradingFee
 
 RF_Bind_ReqQryTradingFee
     [Arguments]    ${ExchangeID}    ${ApiID}=${ApiID}
-    ${ret}    RF_Bind_template_req    ReqQryInvestorTradingFee    CTORATstpQryInvestorTradingFeeField    ${ApiID}    ${1}    ${DepartmentID}
+    ${ret}    RF_Bind_template_req    ReqQryTradingFee    CTORATstpQryTradingFeeField    ${ApiID}    ${1}    ${DepartmentID}
     ...    ${LogInAccount}    ${LogInAccountType}
     [Return]    ${ret}
 
@@ -177,7 +177,7 @@ RF_Bind_ReqQryIPOQuota
 Base_Bind_ReqQrySecurity
     [Arguments]    ${SecurityID}    ${ExchangeInstID}=\    ${ApiID}=${ApiID}
     RF_Bind_ReqQrySecurity    ${SecurityID}    ${ExchangeID}    ${ExchangeInstID}    \    ${ApiID}
-    ${ret}    RF_Bind_template_check_qry    OnRspQrySecurity    ${ApiID}
+    ${ret}    RF_Bind_template_check_qry    OnRspQrySecurity    ${ApiID}    SecurityID=${SecurityID}
     [Return]    ${ret}
 
 RF_Bind_ReqQrySecurity

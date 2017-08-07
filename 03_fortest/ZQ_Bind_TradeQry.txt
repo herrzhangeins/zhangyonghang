@@ -28,7 +28,7 @@ ${UserID}         ${InvestorID}
 ${AccountType}    1
 ${DepartmentID}    5108
 ${BusinessUnitID}    ${InvestorID}
-${Password}       *Sh//+)$    #
+${Password}       *Sh//+)$    #*Sh//+)$
 
 *** Test Cases ***
 Bind_01_QryTradingAccount
@@ -36,7 +36,7 @@ Bind_01_QryTradingAccount
     RF_Bind_template_check_qry    OnRspQryTradingAccount    ${ApiID}
 
 Bind_02_QryOrder
-    Base_Bind_ReqOrderInsert    ${SecurityID}    ${Price}    ${Volume}    0
+    Base_Bind_ReqOrderInsert    ${SecurityID}    ${6.5}    ${Volume}    0
     Base_Bind_ReqOrderAction    ${SecurityID}
     Base_Bind_ReqQryOrder    ${SecurityID}
     RF_Bind_template_check_qry    OnRspQryOrder    ${ApiID}
@@ -62,9 +62,6 @@ Bind_06_QryEtfFile
 Bind_07_QryBUProxy
     Base_Bind_ReqQryBUProxy
 
-Bind_08_QryBusinessUnitAndTradingAcct
-    Base_Bind_ReqQryBusinessUnitAndTradingAcct    ${EMPTY}
-
 Bind_09_QryExchange
     Base_Bind_ReqQryExchange    ${ExchangeID}
 
@@ -76,7 +73,7 @@ Bind_11_QryUser
     RF_Bind_template_check_qry    OnRspQryUser    ${ApiID}    UserID=${InvestorID}
 
 Bind_12_QryOrderAction
-    Base_Bind_ReqOrderInsert    ${SecurityID}    ${Price}    ${Volume}    0
+    Base_Bind_ReqOrderInsert    ${SecurityID}    ${6.5}    ${Volume}    0
     Base_Bind_ReqOrderAction    ${SecurityID}
     Base_Bind_ReqQryOrderAction    ${InvestorID}
 
@@ -90,7 +87,7 @@ Bind_15_QryIPOQuota
     Base_Bind_ReqQryIPOQuota    ${InvestorID}
 
 Bind_16_QrySecurity
-    Base_Bind_ReqQrySecurity    600000
+    Base_Bind_ReqQrySecurity    000001
 
 Bind_17_QryInvestor
     Base_Bind_ReqQryInvestor    ${InvestorID}
@@ -101,12 +98,6 @@ Bind_18_QryETFBasket
 Bind_19_QryMarketData
     Base_Bind_ReqQryMarketData    ${SecurityID}
 
-Bind_20_QryBusinessUnit
-    Base_Bind_ReqQryBusinessUnit    ${InvestorID}
-
-Bind_21_QryBrokerUserFunction
-    Base_Bind_ReqQryBrokerUserFunction    ${UserID}
-
 Bind_22_QryOrderFundDetail
     Base_Bind_ReqQryOrderFundDetail    ${InvestorID}    ${SecurityID}
 
@@ -116,12 +107,3 @@ Bind_23_QryMarket
 Bind_24_QryFundTransferDetail
     Base_Bind_ReqTransferFund    ${0.01}    1    00000001    ${DepartmentID}
     Base_Bind_ReqQryFundTransferDetail    ${AccountID}    ${DepartmentID}
-
-Bind_25_QryPositionTransferDetail
-    Base_Bind_ReqTransferPostion    ${InvestorID}    ${ShareHolderID}    ${SecurityID}    ${100}    0    1
-    ...    ${EMPTY}
-    Base_Bind_ReqQryPositionTransferDetail    ${ShareHolderID}    ${SecurityID}
-
-Bind_26_QryDesignationRegistration
-    Base_Bind_ReqQryDesignationRegistration    ${Empty}    ${EMPTY}
-    RF_Bind_template_check_qry    OnRspQryDesignationRegistration    ${ApiID}

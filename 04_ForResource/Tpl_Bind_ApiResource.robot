@@ -20,7 +20,8 @@ RF_Bind_template_req
 RF_Bind_template_check_rtn
     [Arguments]    ${FuncName}    ${ApiID}=${ApiID}    &{kwargs}
     &{dict}    Create Dictionary    &{kwargs}
-    ${list}    check call back    ${FuncName}    ${ApiID}    ${max_seq}    pRtnStruct=&{dict}
+    ${list}    check call back    ${FuncName}    ${ApiID}    ${max_seq}    pRtnStruct=&{dict}    DepartmentID=${DepartmentID}
+    ...    LogInAccount=${LogInAccount}    LogInAccountType=${LogInAccountType}
     ${ret}    set variable    ${list[0]['pRtnStruct']}
     [Return]    ${ret}
 
@@ -29,6 +30,7 @@ RF_Bind_template_check_rsp
     &{dict}    Create Dictionary    &{kwargs}
     &{rspinfo}    Create Dictionary    ErrorID=${ErrorID}
     ${list}    check call back    ${FuncName}    ${ApiID}    ${max_seq}    pRspStruct=&{dict}    pRspInfo=&{rspinfo}
+    ...    DepartmentID=${DepartmentID}    LogInAccount=${LogInAccount}    LogInAccountType=${LogInAccountType}
     ${ret}    set variable    ${list[0]['pRspStruct']}
     [Return]    ${ret}
 
@@ -41,12 +43,14 @@ RF_Bind_template_check_err
     [Arguments]    ${FuncName}    ${ErrorID}    ${ApiID}=${ApiID}    &{kwargs}
     &{dict}    Create Dictionary    &{kwargs}
     &{rspinfo}    Create Dictionary    ErrorID=${ErrorID}
-    ${list}    check call back    ${FuncName}    ${ApiID}    ${max_seq}    pRspInfo=&{rspinfo}
+    ${list}    check call back    ${FuncName}    ${ApiID}    ${max_seq}    pRspInfo=&{rspinfo}    DepartmentID=${DepartmentID}
+    ...    LogInAccount=${LogInAccount}    LogInAccountType=${LogInAccountType}
     ${ret}    set variable    ${list[0]['pRtnStruct']}
 
 RF_Bind_template_check_last
     [Arguments]    ${FuncName}    ${ApiID}=${ApiID}
     &{rspinfo}    Create Dictionary    ErrorID=${0}
-    ${list}    check call back    ${FuncName}    ${ApiID}    ${max_seq}    pRspInfo=&{rspinfo}
+    ${list}    check call back    ${FuncName}    ${ApiID}    ${max_seq}    pRspInfo=&{rspinfo}    DepartmentID=${DepartmentID}
+    ...    LogInAccount=${LogInAccount}    LogInAccountType=${LogInAccountType}
     &{ret}    ${list[0]}
     [Return]    ${ret}

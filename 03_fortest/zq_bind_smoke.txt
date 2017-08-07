@@ -4,9 +4,9 @@ Library           ApiTesterLib.src.library.ApiTestLib    ZQBIND
 Resource          ../04_ForResource/Base_Bind_ApiResource.robot
 
 *** Variables ***
-${UserID}         ${InvestorID}
+${UserID}         admin    # ${InvestorID}
 ${AccountID}      10044527
-${Password}       *Sh//+)$    #
+${Password}       123456    #*Sh//+)$
 ${AccountType}    1
 ${ApiID}          default
 ${UserProductInfo}    ${TerminalInfo}
