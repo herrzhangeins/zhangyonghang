@@ -1,0 +1,127 @@
+*** Settings ***
+Documentation     查询
+...
+...               持仓
+...
+...               资金
+...
+...               盘后可查
+Suite Setup       run keywords    Base_Bind_connect_nameserver
+...               AND    Base_Bind_ReqUserLogin    ${UserID}
+Suite Teardown    Base_Bind_ReqUserLogout    ${UserID}
+Resource          ../04_ForResource/Base_Bind_ApiResource.robot
+Resource          ../04_ForResource/Bind_Qry_Resource.txt
+Library           ApiTesterLib.src.testPy
+Library           ApiTesterLib.src.library.ApiTestLib    ZQBIND
+Library           BuiltIn
+Resource          ../04_ForResource/SZ_Resource.robot
+
+*** Variables ***
+${ShareHolderID}    0107670626
+${CurrencyID}     CNY
+${OrderRef}       ${0}
+${Volume}         ${100}
+${ProductID}      SHStock
+${AccountID}      10044527
+${InvestorID}     5641452
+${UserID}         ${InvestorID}
+${AccountType}    1
+${DepartmentID}    5108
+${BusinessUnitID}    ${InvestorID}
+${Password}       *Sh//+)$    #
+
+*** Test Cases ***
+Bind_01_QryTradingAccount
+    Base_Bind_ReqQryTradingAccount    ${AccountID}
+    RF_Bind_template_check_qry    OnRspQryTradingAccount    ${ApiID}
+
+Bind_02_QryOrder
+    Base_Bind_ReqOrderInsert    ${SecurityID}    ${Price}    ${Volume}    0
+    Base_Bind_ReqOrderAction    ${SecurityID}
+    Base_Bind_ReqQryOrder    ${SecurityID}
+    RF_Bind_template_check_qry    OnRspQryOrder    ${ApiID}
+
+Bind_03_QryPosition
+    Base_Bind_ReqQryPosition    ${SecurityID}
+    RF_Bind_template_check_qry    OnRspQryPosition    SecurityID=${SecurityID}
+
+Bind_04_QryTrade
+    Base_Bind_ReqOrderInsert    ${SecurityID}    ${Price}    ${Volume}    0
+    Base_Bind_ReqOrderInsert    ${SecurityID}    ${Price}    ${Volume}    1
+    Base_Bind_ReqQryTrade    ${SecurityID}
+    RF_Bind_template_check_qry    OnRspQryTrade    SecurityID=${SecurityID}
+
+Bind_05_QryIPOInfo
+    Base_Bind_ReqQryIPOInfo
+    RF_Bind_template_check_qry    OnRspQryIPOInfo    SecurityID=002852
+
+Bind_06_QryEtfFile
+    Base_Bind_ReqQryETFFile    159901    159901
+    RF_Bind_template_check_qry    OnRspQryETFFile    ${ApiID}
+
+Bind_07_QryBUProxy
+    Base_Bind_ReqQryBUProxy
+
+Bind_08_QryBusinessUnitAndTradingAcct
+    Base_Bind_ReqQryBusinessUnitAndTradingAcct    ${EMPTY}
+
+Bind_09_QryExchange
+    Base_Bind_ReqQryExchange    ${ExchangeID}
+
+Bind_10_QryInvestorTradingFee
+    Base_Bind_ReqQryInvestorTradingFee
+
+Bind_11_QryUser
+    Base_Bind_ReqQryUser    ${InvestorID}
+    RF_Bind_template_check_qry    OnRspQryUser    ${ApiID}    UserID=${InvestorID}
+
+Bind_12_QryOrderAction
+    Base_Bind_ReqOrderInsert    ${SecurityID}    ${Price}    ${Volume}    0
+    Base_Bind_ReqOrderAction    ${SecurityID}
+    Base_Bind_ReqQryOrderAction    ${InvestorID}
+
+Bind_13_QryTradingFee
+    Base_Bind_ReqQryTradingFee
+
+Bind_14_QryShareholderAccount
+    Base_Bind_ReqQryShareholderAccount    ${InvestorID}
+
+Bind_15_QryIPOQuota
+    Base_Bind_ReqQryIPOQuota    ${InvestorID}
+
+Bind_16_QrySecurity
+    Base_Bind_ReqQrySecurity    600000
+
+Bind_17_QryInvestor
+    Base_Bind_ReqQryInvestor    ${InvestorID}
+
+Bind_18_QryETFBasket
+    Base_Bind_ReqQryETFBasket    511010    019315
+
+Bind_19_QryMarketData
+    Base_Bind_ReqQryMarketData    ${SecurityID}
+
+Bind_20_QryBusinessUnit
+    Base_Bind_ReqQryBusinessUnit    ${InvestorID}
+
+Bind_21_QryBrokerUserFunction
+    Base_Bind_ReqQryBrokerUserFunction    ${UserID}
+
+Bind_22_QryOrderFundDetail
+    Base_Bind_ReqQryOrderFundDetail    ${InvestorID}    ${SecurityID}
+
+Bind_23_QryMarket
+    Base_Bind_ReqQryMarket
+
+Bind_24_QryFundTransferDetail
+    Base_Bind_ReqTransferFund    ${0.01}    1    00000001    ${DepartmentID}
+    Base_Bind_ReqQryFundTransferDetail    ${AccountID}    ${DepartmentID}
+
+Bind_25_QryPositionTransferDetail
+    Base_Bind_ReqTransferPostion    ${InvestorID}    ${ShareHolderID}    ${SecurityID}    ${100}    0    1
+    ...    ${EMPTY}
+    Base_Bind_ReqQryPositionTransferDetail    ${ShareHolderID}    ${SecurityID}
+
+Bind_26_QryDesignationRegistration
+    Base_Bind_ReqQryDesignationRegistration    ${Empty}    ${EMPTY}
+    RF_Bind_template_check_qry    OnRspQryDesignationRegistration    ${ApiID}
