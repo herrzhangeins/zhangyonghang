@@ -1,6 +1,6 @@
 *** Variables ***
 ${SecurityID}     002174
-${Price}          ${19.2}
+${Price}          ${19.5}
 ${Volume}         ${100}
 ${ExchangeID}     2
 ${MarketID}       2

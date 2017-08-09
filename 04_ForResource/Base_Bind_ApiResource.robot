@@ -215,3 +215,49 @@ RF_Bind_OnFrontDisconnected
     [Arguments]    ${ApiID}=${ApiID}    ${nReason}=${-3}
     ${max_seq}=    get_max_seqno
     check call back    OnFrontDisconnected    ${ApiID}    ${max_seq}    nReason=${nReason}
+
+Base_Bind_ReqInquiryJZFund
+    [Arguments]    ${Amount}    ${TransferDirection}    ${ApplySerial}    ${DepartmentID}=${DepartmentID}    ${ApiID}=${ApiID}
+    RF_Bind_ReqInquiryJZFund    ${AccountID}    ${CurrencyID}    ${ApplySerial}    ${TransferDirection}    ${Amount}    5108
+    ...    ${ApiID}
+    ${ret}    RF_Bind_template_check_rtn    OnRtnInquiryJZFund    ${ApiID}    AccountID=${AccountID}    TransferDirection=${TransferDirection}    Amount=${Amount}
+    ...    TransferStatus=1
+    [Return]    ${ret}
+
+RF_Bind_ReqInquiryJZFund
+    [Arguments]    ${AccountID}    ${CurrencyID}    ${ApplySerial}    ${TransferDirection}    ${Amount}    ${DepartmentID}
+    ...    ${ApiID}=${ApiID}
+    ${ret}    RF_Bind_template_req    ReqInquiryJZFund    CTORATstpReqInquiryJZFundField    ${ApiID}    ${1}    ${DepartmentID}
+    ...    ${LogInAccount}    ${LogInAccountType}    AccountID=${AccountID}    CurrencyID=${CurrencyID}    ApplySerial=${ApplySerial}    TransferDirection=${TransferDirection}
+    ...    Amount=${Amount}    DepartmentID=${DepartmentID}
+    [Return]    ${ret}
+
+Base_Bind_ReqInquiryMaxOrderVolume
+    [Arguments]    ${Amount}    ${TransferDirection}    ${ApplySerial}    ${DepartmentID}=${DepartmentID}    ${ApiID}=${ApiID}
+    RF_Bind_ReqInquiryMaxOrderVolume    ${AccountID}    ${CurrencyID}    ${ApplySerial}    ${TransferDirection}    ${Amount}    5108
+    ...    ${ApiID}
+    ${ret}    RF_Bind_template_check_rtn    OnRtnInquiryMaxOrderVolume    ${ApiID}    AccountID=${AccountID}    TransferDirection=${TransferDirection}    Amount=${Amount}
+    ...    TransferStatus=1
+    [Return]    ${ret}
+
+RF_Bind_ReqInquiryMaxOrderVolume
+    [Arguments]    ${AccountID}    ${CurrencyID}    ${ApplySerial}    ${TransferDirection}    ${Amount}    ${DepartmentID}
+    ...    ${ApiID}=${ApiID}
+    ${ret}    RF_Bind_template_req    ReqInquiryMaxOrderVolume    CTORATstpReqInquiryMaxOrderVolumeField    ${ApiID}    ${1}    ${DepartmentID}
+    ...    ${LogInAccount}    ${LogInAccountType}    AccountID=${AccountID}    CurrencyID=${CurrencyID}    ApplySerial=${ApplySerial}    TransferDirection=${TransferDirection}
+    ...    Amount=${Amount}    DepartmentID=${DepartmentID}
+    [Return]    ${ret}
+
+Base_Bind_ReqTransferCollateral
+    [Arguments]    ${Amount}    ${TransferDirection}    ${ApplySerial}    ${DepartmentID}=${DepartmentID}    ${ApiID}=${ApiID}
+    RF_Bind_ReqTransferCollateral    ${AccountID}    ${CurrencyID}    ${ApplySerial}    ${TransferDirection}    ${Amount}    5108
+    ...    ${ApiID}    #${ret}    RF_Bind_template_check_rtn    OnRspQryFundTransferDetail    ${ApiID}    AccountID=${AccountID}
+    ...    # TransferDirection=${TransferDirection}    Amount=${Amount}    # TransferStatus=1    ApplySerial=${ApplySerial}
+
+RF_Bind_ReqTransferCollateral
+    [Arguments]    ${AccountID}    ${CurrencyID}    ${ApplySerial}    ${TransferDirection}    ${Amount}    ${DepartmentID}
+    ...    ${ApiID}=${ApiID}
+    ${ret}    RF_Bind_template_req    ReqTransferCollateral    CTORATstpInputTransferCollateralField    ${ApiID}    ${1}    ${DepartmentID}
+    ...    ${LogInAccount}    ${LogInAccountType}    AccountID=${AccountID}    CurrencyID=${CurrencyID}    ApplySerial=${ApplySerial}    TransferDirection=${TransferDirection}
+    ...    Amount=${Amount}    DepartmentID=${DepartmentID}
+    [Return]    ${ret}

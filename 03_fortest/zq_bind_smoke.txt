@@ -23,41 +23,34 @@ ${InvestorID}     5641452
 ${DepartmentID}    5108
 
 *** Test Cases ***
-Bind_00_connect_nameserver
+Bind_00_Reqconnect_nameserver
     Base_Bind_connect_nameserver
 
-Bind_01_UserLogin
+Bind_01_ReqUserLogin
     Base_Bind_ReqUserLogin    ${UserID}
 
-Bind_02_OrderInsert
+Bind_02_ReqOrderInsert
     Base_Bind_ReqOrderInsert    ${SecurityID}    ${Price}    ${Volume}
 
-Bind_03_OrderAction
+Bind_03_ReqOrderAction
     Base_Bind_ReqOrderAction    ${SecurityID}
 
-Bind_04_TransferFund
+Bind_04_ReqTransferFund
     Base_Bind_ReqTransferFund    ${0.01}    1    00000001
 
-Bind_05_DesignationRegistration
-    Base_Bind_ReqDesignationRegistration    ${UserID}    B880304814    10028790    }
-    Base_Bind_ReqDesignationRegistration    ${UserID}    B880304814    10028790    {
-
-Bind_06_ForceUserLogout
-    Base_Bind_ReqForceUserLogout    ${InvestorID}
-
-Bind_07_ForceUserExit
-    Base_Bind_ReqForceUserExit    ${InvestorID}
-
-Bind_08_UserPasswordUpdate
+Bind_05_ReqUserPasswordUpdate
     Base_Bind_ReqUserPasswordUpdate    ${UserID}    ${Password}    123456
 
-Bind_09_ActivateUser
-    Base_Bind_ReqActivateUser    ${InvestorID}
-
-Bind_10_VerifyUserPassword
-    Base_Bind_ReqVerifyUserPassword    ${UserID}    ${Password}
-
-Bind_11_UserLogout
+Bind_06_ReqUserLogout
     Base_Bind_ReqUserLogout    ${UserID}
+
+Bind_07_ReqInquiryJZFund
+    Base_Bind_ReqInquiryJZFund    ${0.01}    1    00000001
+
+Bind_08_ReqTransferCollateral
+    Base_Bind_ReqTransferCollateral    ${0.01}    1    00000001
+
+Bind_09_ReqInquiryMaxOrderVolume
+    Base_Bind_ReqInquiryMaxOrderVolume    ${0.01}    1    00000001
 
 *** Keywords ***

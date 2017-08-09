@@ -10,7 +10,7 @@ Suite Setup       run keywords    Base_Bind_connect_nameserver
 ...               AND    Base_Bind_ReqUserLogin    ${UserID}
 Suite Teardown    Base_Bind_ReqUserLogout    ${UserID}
 Resource          ../04_ForResource/Base_Bind_ApiResource.robot
-Resource          ../04_ForResource/Bind_Qry_Resource.txt
+Resource          ../04_ForResource/Bind_Qry_Resource.robot
 Library           ApiTesterLib.src.testPy
 Library           ApiTesterLib.src.library.ApiTestLib    ZQBIND
 Library           BuiltIn
@@ -79,6 +79,7 @@ Bind_12_QryOrderAction
 
 Bind_13_QryTradingFee
     Base_Bind_ReqQryTradingFee
+    sleep    10
 
 Bind_14_QryShareholderAccount
     Base_Bind_ReqQryShareholderAccount    ${InvestorID}
@@ -107,3 +108,29 @@ Bind_23_QryMarket
 Bind_24_QryFundTransferDetail
     Base_Bind_ReqTransferFund    ${0.01}    1    00000001    ${DepartmentID}
     Base_Bind_ReqQryFundTransferDetail    ${AccountID}    ${DepartmentID}
+
+Bind_08_QryPledgeInfo
+    Base_Bind_ReqQryPledgeInfo    888880    888880
+    RF_Bind_template_check_qry    OnRspQryPledgeInfo    ${ApiID}
+
+Bind_20_QryPositionTransferDetail
+    Base_Bind_QryPositionTransferDetail    ${InvestorID}    ${SecurityID}
+
+Bind_21_QryFundTransferDetail
+    Base_Bind_QryFundTransferDetail    ${InvestorID}    ${SecurityID}
+
+Bind_25_QryConversionBondInfo
+    Base_Bind_QryConversionBondInfo
+    RF_Bind_template_check_qry    OnRspQryConversionBondInfo
+
+Bind_26_QryBondPutbackInfo
+    Base_Bind_ReqQryBondPutbackInfo
+    RF_Bind_template_check_qry    OnRspQryBondPutbackInfo
+
+Bind_27_QryPledgePosition
+    Base_Bind_ReqQryPledgePosition    ${SecurityID}
+    RF_Bind_template_check_qry    OnRspQryPledgePosition
+
+Bind_28_QryStandardBondPosition
+    Base_Bind_ReqQryStandardBondPosition    ${SecurityID}
+    RF_Bind_template_check_qry    OnRspQryStandardBondPosition
